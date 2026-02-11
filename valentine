@@ -18,10 +18,12 @@ body{
   display:grid;
   place-items:center;
   background:linear-gradient(135deg,#fff1f6,#ffe4ef);
+
+  /* ✅ SCROLL FIX */
   overflow-x:hidden;
   overflow-y:auto;
 }
-.wrap{width:min(920px,92vw);}
+.wrap{width:min(920px,92vw); padding:40px 0;}
 .card{
   background:white;
   border-radius:22px;
@@ -60,7 +62,7 @@ button{
 
 /* hearts */
 .heart{
-  position:absolute;
+  position:fixed;
   width:18px;height:18px;
   background:var(--accent2);
   transform:rotate(45deg);
@@ -95,6 +97,8 @@ button{
 .modal.open{display:flex;}
 .letter{
   width:min(760px,92vw);
+  max-height:85vh;
+  overflow:auto;
   background:#fff6fa;
   border-radius:22px;
   border:1px solid #ffd3e2;
@@ -138,22 +142,20 @@ button{
     <div class="letter-body">
 My love,
 
-I wish I could show you your place in my heart the way I feel it  not just write it. But tonight, this letter will try.
+You are my calm, my excitement, my safe place, and my adventure all at once.
 
-You are my calm, my excitement, my safe place, and my adventure all at once. Being with you makes ordinary moments feel important and beautiful.
+I keep thinking about our walks in the park in <b>Strasbourg</b> — how time slowed down when it was just us.
 
-I keep thinking about our walks in the park in <b>Strasbourg</b>  the quiet, the air, the way time slowed down when it was just us walking and talking. Those moments live in me.
+I think about <b>Amsterdam</b> — getting lost together and turning streets into memories.
 
-I think about <b>Amsterdam</b>  getting lost in our own world, laughing, exploring, turning streets into memories. It felt like heaven on earth.
+And <b>Japan</b> — every light and every step felt brighter because you were beside me.
 
-And <b>Japan</b> every light, every street, every small detail felt brighter because you were beside me. You make places feel alive.
+But what I love most isn’t the cities — it’s you in them.
 
-But what I love most isn’t the cities  it’s you in them. Your laugh. Your voice. Your presence. The way you make everything feel warmer and more meaningful.
+I choose you — again and again.
 
-I choose you in the simple days and the complicated ones. In the quiet moments and the loud ones. Again and again.
-
-Happy Valentine’s Day, my love.
-I love you more than words  and I’ll keep proving it.
+Happy Valentine’s Day.
+I love you more than words.
 
 Forever yours, always and completely 💞
     </div>
@@ -168,21 +170,12 @@ Forever yours, always and completely 💞
 
 <div class="panel">
 <h2>My message</h2>
-<p>
-You are my favorite notification, my best decision, and my safest place.
-I love you more than words ❤️
-</p>
-
+<p>You are my favorite notification, my best decision, and my safest place ❤️</p>
 <button class="ghost" onclick="openLetter()">Open your love letter 💌</button>
 
 <div class="spotify">
-<iframe
-src="https://open.spotify.com/embed/track/1NwjfTd5fsvRFtYGERuKzA"
-width="100%"
-height="152"
-frameborder="0"
-allow="autoplay; encrypted-media">
-</iframe>
+<iframe src="https://open.spotify.com/embed/track/1NwjfTd5fsvRFtYGERuKzA"
+width="100%" height="152" frameborder="0"></iframe>
 </div>
 </div>
 
@@ -191,20 +184,6 @@ allow="autoplay; encrypted-media">
 <div style="display:flex; gap:14px;">
 <button class="primary" style="flex:1" onclick="valentineYes()">Yes 💖</button>
 <button class="primary" style="flex:1" onclick="valentineYes()">Yes 😌</button>
-</div>
-</div>
-
-<div class="panel">
-<h2>Our highlights</h2>
-<div id="moments">
-<div>🌙 The day I knew it was you</div>
-<div>☕ Our endless talks</div>
-<div>🎶 Our song playing now</div>
-</div>
-
-<div style="display:flex; gap:10px; margin-top:10px;">
-<input id="momentInput" placeholder="Add a memory..." style="flex:1;padding:12px;border-radius:12px;border:1px solid #ffd3e2;">
-<button class="ghost" onclick="addMoment()">Add</button>
 </div>
 </div>
 
@@ -229,18 +208,8 @@ function valentineYes(){
   for(let i=0;i<50;i++) setTimeout(spawnHeart,i*25);
 }
 
-function addMoment(){
-  const v=document.getElementById("momentInput").value.trim();
-  if(!v) return;
-  const d=document.createElement("div");
-  d.textContent="💞 "+v;
-  document.getElementById("moments").appendChild(d);
-  document.getElementById("momentInput").value="";
-}
-
 function openLetter(){
   document.getElementById("loveModal").classList.add("open");
-  for(let i=0;i<25;i++) setTimeout(spawnHeart,i*30);
 }
 function closeLetter(){
   document.getElementById("loveModal").classList.remove("open");
