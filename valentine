@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Valentine’s 💘</title>
+  <style>
+    :root{
+      --bg1:#fff1f6;
+      --bg2:#ffe4ef;
+      --ink:#2a0f1b;
+      --accent:#ff3b7a;
+      --accent2:#ff8fb3;
+      --card:#ffffffcc;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--ink);
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background: radial-gradient(1200px 600px at 20% 10%, var(--bg2), transparent 60%),
+                  radial-gradient(900px 500px at 90% 30%, #ffd1e1, transparent 60%),
+                  linear-gradient(135deg, var(--bg1), #fff);
+      overflow:hidden;
+    }
+    .wrap{
+      width:min(920px, 92vw);
+      padding: 22px;
+      position:relative;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid #ffffff;
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      box-shadow: 0 18px 60px rgba(255,59,122,.18);
+      padding: 26px;
+    }
+    header{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid #ffd3e2;
+      font-weight:600;
+    }
+    .badge span{color:var(--accent)}
+    h1{
+      margin:8px 0 6px;
+      font-size: clamp(28px, 4.2vw, 46px);
+      letter-spacing:-.02em;
+      line-height:1.05;
+    }
+    .sub{
+      margin:0;
+      font-size: clamp(14px, 2.1vw, 18px);
+      opacity:.85;
+    }
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+    }
+    @media (max-width: 820px){
+      .grid{grid-template-columns:1fr}
+    }
+    .panel{
+      border-radius:18px;
+      background:#fff;
+      border:1px solid #ffe0eb;
+      padding:18px;
+    }
+    .panel h2{
+      margin:0 0 10px;
+      font-size: 18px;
+      letter-spacing:-.01em;
+    }
+    .msg{
+      font-size: 16px;
+      line-height:1.7;
+      margin:0;
+      white-space:pre-wrap;
+    }
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+    button{
+      border:0;
+      cursor:pointer;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:700;
+      transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .primary{
+      background: linear-gradient(135deg, var(--accent), #ff5fa0);
+      color:white;
+      box-shadow: 0 12px 26px rgba(255,59,122,.28);
+    }
+    .primary:active{transform: translateY(1px) scale(.99)}
+    .ghost{
+      background:#fff;
+      border:1px solid #ffd3e2;
+      color:var(--ink);
+    }
+    .pill{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid #ffd3e2;
+      background:#fff;
+      margin-top:12px;
+    }
+    input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid #ffe0eb;
+      outline:none;
+      font-size:14px;
+    }
+    .tiny{font-size:12px; opacity:.7; margin-top:10px}
+    .list{
+      display:grid;
+      gap:10px;
+    }
+    .moment{
+      border:1px dashed #ffc1d6;
+      border-radius:16px;
+      padding:12px 12px;
+      background:#fff7fa;
+    }
+    .moment b{color:var(--accent)}
+    .footer{
+      margin-top:16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      opacity:.85;
+      font-size:13px;
+    }
+
+    /* floating hearts */
+    .heart{
+      position:absolute;
+      width:18px; height:18px;
+      transform: rotate(45deg);
+      background: var(--accent2);
+      opacity:.75;
+      border-radius:4px;
+      animation: floatUp linear forwards;
+      pointer-events:none;
+      filter: drop-shadow(0 8px 14px rgba(255,59,122,.22));
+    }
+    .heart::before, .heart::after{
+      content:"";
+      position:absolute;
+      width:18px; height:18px;
+      background: inherit;
+      border-radius:50%;
+    }
+    .heart::before{left:-9px; top:0}
+    .heart::after{left:0; top:-9px}
+    @keyframes floatUp{
+      from{ transform: translateY(0) rotate(45deg) scale(1); }
+      to{ transform: translateY(-120vh) rotate(45deg) scale(.6); opacity:0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="badge">💌 <span id="dateBadge"></span></div>
+        <div class="badge">Made with ❤️ just for <span id="herNameBadge">You</span></div>
+      </header>
+
+      <h1 id="title">Happy Valentine’s, my love 💘</h1>
+      <p class="sub" id="subtitle">A tiny website with big feelings.</p>
+
+      <div class="grid">
+        <section class="panel">
+          <h2>My message to you</h2>
+          <p class="msg" id="message">
+Roses are red,
+Violets are blue,
+I made a whole website
+Just to say: I love you. 💖
+
+You make my days softer, my laughs louder,
+and my heart feel at home.
+          </p>
+
+          <div class="controls">
+            <button class="primary" id="yesBtn">Will you be my Valentine? 💝</button>
+            <button class="ghost" id="surpriseBtn">Open a surprise ✨</button>
+            <button class="ghost" id="musicBtn" aria-pressed="false">Play music 🎵</button>
+          </div>
+
+          <div class="pill">
+            <div style="min-width:220px; font-weight:700;">Personalize it</div>
+            <div style="flex:1; display:grid; gap:8px;">
+              <input id="nameInput" placeholder="Her name (e.g., Layla)" />
+              <input id="yourNameInput" placeholder="Your name (e.g., Sami)" />
+            </div>
+            <button class="primary" id="applyBtn">Apply</button>
+          </div>
+
+          <div class="tiny">Tip: Replace the text in “My message” with your real words for maximum effect.</div>
+        </section>
+
+        <aside class="panel">
+          <h2>Our highlights</h2>
+          <div class="list" id="moments">
+            <div class="moment">🌙 <b>Moment 1:</b> The day I realized you’re my favorite person.</div>
+            <div class="moment">☕ <b>Moment 2:</b> The little things you do that make me melt.</div>
+            <div class="moment">🎶 <b>Moment 3:</b> A song that always reminds me of you.</div>
+          </div>
+
+          <div class="pill" style="margin-top:14px;">
+            <div style="font-weight:700;">Add a highlight</div>
+            <input id="momentInput" placeholder="Write a sweet memory..." />
+            <button class="ghost" id="addMomentBtn">Add</button>
+          </div>
+
+          <div class="footer">
+            <span>💗 P.S. You’re my best decision.</span>
+            <span id="signature">— Yours</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgm" loop>
+    <!-- Replace src with any mp3 file you put in the same folder, e.g., music.mp3 -->
+  </audio>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    // Date badge
+    const now = new Date();
+    $("dateBadge").textContent = now.toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" });
+
+    // Hearts
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      const x = Math.random() * window.innerWidth;
+      h.style.left = x + "px";
+      h.style.bottom = "-24px";
+      h.style.animationDuration = (6 + Math.random()*5) + "s";
+      h.style.background = Math.random() > 0.5 ? "#ff8fb3" : "#ff3b7a";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 12000);
+    }
+    setInterval(spawnHeart, 450);
+
+    // Personalize
+    $("applyBtn").addEventListener("click", () => {
+      const her = $("nameInput").value.trim();
+      const you = $("yourNameInput").value.trim();
+      if (her){
+        $("herNameBadge").textContent = her;
+        $("title").textContent = `Happy Valentine’s, ${her} 💘`;
+      }
+      $("signature").textContent = you ? `— ${you}` : "— Yours";
+    });
+
+    // Valentine button
+    $("yesBtn").addEventListener("click", () => {
+      alert("YAY!! 💞💞💞");
+      for (let i=0;i<25;i++) setTimeout(spawnHeart, i*40);
+    });
+
+    // Surprise
+    $("surpriseBtn").addEventListener("click", () => {
+      const lines = [
+        "I love your smile.",
+        "I love your heart.",
+        "I love your mind.",
+        "I love your laugh.",
+        "I love you. Always."
+      ];
+      const pick = lines[Math.floor(Math.random()*lines.length)];
+      alert("✨ Surprise message ✨\n\n" + pick);
+    });
+
+    // Add moment
+    $("addMomentBtn").addEventListener("click", () => {
+      const txt = $("momentInput").value.trim();
+      if (!txt) return;
+      const div = document.createElement("div");
+      div.className = "moment";
+      div.textContent = "💞 " + txt;
+      $("moments").appendChild(div);
+      $("momentInput").value = "";
+    });
+
+    // Music (optional)
+    const audio = $("bgm");
+    $("musicBtn").addEventListener("click", async (e) => {
+      // If you put a file named music.mp3 in the folder, uncomment the next line:
+      // audio.src = "music.mp3";
+
+      if (!audio.src) {
+        alert("To add music: put an mp3 in the same folder and set audio.src = 'music.mp3' in the code.");
+        return;
+      }
+      if (audio.paused) {
+        try { await audio.play(); } catch {}
+        e.target.setAttribute("aria-pressed","true");
+        e.target.textContent = "Pause music ⏸️";
+      } else {
+        audio.pause();
+        e.target.setAttribute("aria-pressed","false");
+        e.target.textContent = "Play music 🎵";
+      }
+    });
+  </script>
+</body>
+</html>
